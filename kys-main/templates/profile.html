@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+
+<body>
+
+    <div class="w3-container w3-display-middle">
+        <a href="">Profile</a>
+        {% if session['admin'] == True %}
+        <a href="{{url_for('admin')}}">ADMIN</a>
+        {% else %}
+        <a href="{{ url_for('login')}}">user name : {{ session['username']}}</a>
+        {% endif %}
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AAA Company</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="static\css\w3.css">
+    <script src="https://kit.fontawesome.com/813722fa1f.js" crossorigin="anonymous"></script>
+
+    <style>
+  
+      @font-face {
+        font-family: Poppins;
+        src: url('/static/fonts/poppins/Poppins-Medium.ttf');
+      }
+  
+      @font-face {
+        font-family: mont;
+        src: url('/static/fonts/montserrat/Montserrat-Medium.ttf');
+      }
+	  body, html {height: 100%}
+  
+      body {
+        font-family: Poppins;
+        color: #ffffff;
+        background-color: rgb(6, 6, 6);
+      }
+  
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "mont";
+      }
+    </style>
+</head>
+
+<body>
+
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-padding w3-card" style="letter-spacing:3px;">
+            <a href="{{url_for('home')}}" class="w3-bar-item w3-button">
+                <h6 style="font-family: Poppins; letter-spacing: 4px;">AAA Tech Company</h6>
+            </a>
+            <div class="w3-right w3-padding">
+                <a href="#" class="w3-bar-item w3-button w3-ripple w3-hover-gray"><i
+                        class="fa-solid fa-right-to-bracket"></i> Sign up</a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="w3-display-container w3-card-4"
+        style="background-image: url(/static/images/pc-2.jpg); min-height: 100%; background-position: center; background-size: cover;">
+
+        <div class="w3-animate-opacity w3-container w3-display-middle w3-border-blue w3-round w3-black w3-padding w3-center" id="signin">
+            <img src="static\images\custom.png" style="width: 200px; height: 200px; padding-top: 20px;" >
+            <h2>Sign in to your account</h2>
+            <p>shop our high quality products with an account now</p>
+            <div class="w3-container w3-white w3-border w3-round w3-padding">
+				{% if message is defined and message %}
+            			<div class="alert alert-warning"> <h6 style="color: red;">{{ message }}</h6></div>
+        		{% endif %}
+                <form class="validate-form" action="{{ url_for('login') }}" method="POST">
+
+                    <p><input class="w3-input w3-border w3-round" type="text" placeholder="Email" name="email" required>
+                    </p>
+                    <p><input class="w3-input w3-border w3-round" type="password" placeholder="Password" name="password"required>
+                    </p>
+                    <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}"/>
+    
+                    <button type="submit" class="w3-button w3-ripple w3-block w3-black w3-hover-dark-gray w3-round"><i
+                            class="fa-solid fa-right-to-bracket"></i> Log in</button>
+                </form>
+
+            </div>
+            <p><a class="w3-button w3-hover-dark-gray" href="{{ url_for('register')}}">New here? Make an new account</a></p>
+        </div>
+
+
+    </div>
+	<script src="static\js\main.js"></script>
+    <script>
+        function signin() {
+            document.getElementById("signin").style.display = "none";
+            document.getElementById("login").style.display = "block";
+        }
+        function login() {
+            document.getElementById("signin").style.display = "block";
+            document.getElementById("login").style.display = "none";
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>AAA Company</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static\css\w3.css">
+  <script src="https://kit.fontawesome.com/813722fa1f.js" crossorigin="anonymous"></script>
+
+  <style>
+    body,
+    html {
+      height: 100%
+    }
+
+    @font-face {
+      font-family: Poppins;
+      src: url('/static/fonts/poppins/Poppins-Medium.ttf');
+    }
+
+    @font-face {
+      font-family: mont;
+      src: url('/static/fonts/montserrat/Montserrat-Medium.ttf');
+    }
+
+    body {
+      font-family: Poppins;
+      color: #ffffff;
+      background-color: rgb(6, 6, 6);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: "mont";
+      letter-spacing: 5px;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidebar">
+    <div class="w3-container w3-display-container w3-padding-16">
+      <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+      <a href="{{url_for('home')}}" class="w3-button">
+        <h3 class="w3-wide"><b>AAA Tech<br>Company</b></h3>
+      </a>
+      <hr>
+    </div>
+
+    <div class="w3-large w3-text-grey" style="font-weight:bold">
+      {%for i in range(0, taglen)%}
+      <a href="{{ url_for('store', tag=tags[i]) }}" class="w3-bar-item w3-button">{{tags[i]}}</a>
+      {%endfor%}
+
+    </div>
+
+  </nav>
+
+  <!-- Top menu on small screens -->
+  <header class="w3-bar w3-top w3-hide-large w3-black w3-xlarge">
+    <div class="w3-bar-item w3-padding-24 w3-wide"><a href="#">AAA Tech Company</a></div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i
+        class="fa fa-bars"></i></a>
+  </header>
+
+  <!-- PAGE CONTENT -->
+  <div class="w3-main"
+    style="background-image: url(static/images/back2.jpg); min-height: 100%; background-position: center; background-size: cover; margin-left:250px">
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+
+    <!-- Top header -->
+    <header class="w3-container w3-xlarge">
+      <p class="w3-left">Our products</p>
+      <p class="w3-right">
+        <a><i class="fa fa-search"></i></a>
+
+        <a style="padding: 10px;"><i class="fa fa-shopping-cart"></i> $0</a>
+        {% if session.username %}
+        <a href="{{url_for('profile')}}"><i class="fa-solid fa-user"></i></a>
+        {% else %}
+        <a href="{{ url_for('login')}}"><i class="fa fa-right-to-bracket w3-margin-right"></i></a>
+        {% endif %}
+
+      </p>
+    </header>
+
+    <div class="w3-container" id="amount">
+      <p style="color: rgb(230, 230, 230);">{{ prodlen }} item(s)</p>
+    </div>
+
+    <!-- Product grid -->
+    <div class="w3-row-padding">
+      <!-- in stock -->
+      {%for i in range(0, prodlen)%}
+      <div class="w3-quarter w3-display-container w3-margin-bottom">
+        {% if products[i][2] == 1 %}
+        <span class="w3-tag w3-large w3-green" style="position: absolute;">IN STOCK</span>
+        <img src="{{ url_for('image', item = products[i][0]) }}" style="width:100%;" class="w3-hover-opacity">
+        <div class="w3-display-middle w3-display-hover">
+          <button class="w3-button w3-black">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+        </div>
+        {% else %}
+        <span class="w3-tag w3-large w3-red" style="position: absolute;">OUT OF STOCK</span>
+        <img src="{{ url_for('image', item = products[i][0]) }}" style="width:100%;" class="w3-hover-opacity">
+        {% endif %}
+
+        <div class="w3-container w3-dark-gray">
+          <p><b>{{products[i][0]}}</b></p>
+        </div>
+        <div class="w3-container w3-white">
+          <p>Tag: <b>{{products[i][4]}}<br>Rs. {{products[i][1]}}</b></p>
+        </div>
+      </div>
+      {%endfor%}
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    // Open and close sidebar
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+    }
+
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+  </script>
+
+</body>
+
+</html>
